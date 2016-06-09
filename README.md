@@ -1,3 +1,3 @@
 # Foobar-Messenger
 
-Mindfuck project for SECURDE =( =(
+Mindfuck project for SECURDE =( =/
