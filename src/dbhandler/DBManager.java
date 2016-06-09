@@ -65,7 +65,7 @@ public class DBManager {
 			}
 			instance = new DBManager("com.mysql.jdbc.DriverManager"
 					,"jdbc:mysql://127.0.0.1:3306/"
-					,"db_foobar","root","");
+					,"db_foobar","root","B@l3r10n7476");
 			return instance;
 		}
 	}
