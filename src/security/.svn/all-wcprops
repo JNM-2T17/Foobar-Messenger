@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/security
+END
+AccessRule.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/3/SECPROG-SAMPLE/src/java/security/AccessRule.java
+END
+Authenticator.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/security/Authenticator.java
+END
+AccessManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/3/SECPROG-SAMPLE/src/java/security/AccessManager.java
+END

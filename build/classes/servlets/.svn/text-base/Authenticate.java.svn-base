@@ -1,0 +1,137 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package servlets;
+
+import dbhandler.DBConnector;
+import dbhandler.Hasher;
+import dbhandler.Randomizer;
+import dbhandler.User;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.owasp.esapi.errors.AuthenticationException;
+import security.AccessManager;
+import security.Authenticator;
+
+/**
+ *
+ * @author miguelgomez
+ */
+@WebServlet(name = "authenticate", urlPatterns = {"/authenticate"})
+public class Authenticate extends HttpServlet {
+    DBConnector dbConnector = null;
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected synchronized void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            User loggedInUser = null;
+            String clientSalt = null;
+            String clientToken = null;
+            Cookie clientCookie = null;
+            String clientAddress = null;
+            HttpSession userSession = null;
+            PrintWriter out = response.getWriter();
+            AccessManager accessSession = null;
+            Hasher hashGenerator = new Hasher(Hasher.SHA256);
+            Randomizer randomGenerator = new Randomizer(1234);
+            Authenticator authenticator = new Authenticator();
+            //Log in and return user details
+            loggedInUser = (User) authenticator.login(request, response);
+            //Create session information
+            if(loggedInUser != null && loggedInUser.isLoggedIn()){
+                //Generate a new session
+                request.getSession().invalidate();
+                userSession = request.getSession(true);
+                //Set timeout to 10 minutes
+                userSession.setMaxInactiveInterval(600);
+                //Get client IP Address
+                clientAddress = request.getRemoteAddr();
+                //Generate unique salt value
+                clientSalt = Long.toString(randomGenerator.getRandomLong());
+                //Generate hash for client token
+                hashGenerator.updateHash(clientAddress, "UTF-8");
+                hashGenerator.updateHash(clientSalt, "UTF-8");
+                clientToken = hashGenerator.getHashBASE64();
+                //Save hash and salt in session
+                userSession.setAttribute("session_salt", clientSalt);
+                //Save token in session
+                userSession.setAttribute("session_token", clientToken);
+                //Create new access manager
+                accessSession = new AccessManager(loggedInUser);
+                //Save user to session
+                userSession.setAttribute("session_user", loggedInUser);
+                //Save access manager to session
+                userSession.setAttribute("session_access", accessSession);
+                loggedInUser.addSession(userSession);
+                //Redirect to main page
+                response.sendRedirect("Extract");
+            }else{
+                //Get client remote address
+                //Get 
+                //Redirect to log in page
+                response.sendRedirect("index.jsp");
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            //Log properly
+            Logger.getLogger(Authenticate.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AuthenticationException ex) {
+            //Log properly
+            Logger.getLogger(Authenticate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /** 
+     * Handles the HTTP <code>GET</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /** 
+     * Handles the HTTP <code>POST</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /** 
+     * Returns a short description of the servlet.
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+}

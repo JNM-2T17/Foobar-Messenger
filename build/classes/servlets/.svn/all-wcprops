@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/servlets
+END
+doRegister.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/servlets/doRegister.java
+END
+LogoutServ.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/servlets/LogoutServ.java
+END
+doDeleteMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/3/SECPROG-SAMPLE/src/java/servlets/doDeleteMessage.java
+END
+Extract.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/servlets/Extract.java
+END
+MessageComposer.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/servlets/MessageComposer.java
+END
+Authenticate.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/servlets/Authenticate.java
+END
+doSendMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/servlets/doSendMessage.java
+END

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/dbhandler
+END
+Message.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3/SECPROG-SAMPLE/src/java/dbhandler/Message.java
+END
+Randomizer.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/dbhandler/Randomizer.java
+END
+Hasher.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/dbhandler/Hasher.java
+END
+User.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/4/SECPROG-SAMPLE/src/java/dbhandler/User.java
+END
+DBConnector.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/3/SECPROG-SAMPLE/src/java/dbhandler/DBConnector.java
+END
