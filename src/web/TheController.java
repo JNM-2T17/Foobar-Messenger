@@ -255,7 +255,7 @@ public class TheController {
         //If logged in, redirect to main page. Otherwise, return to this page
         if(loggedInUser != null && loggedInUser.isLoggedIn()){
         	if( validate(request,response) ) {
-                request.getRequestDispatcher("WEB-INF/view/main.jsp").forward(request,response);
+                extract(request,response);
         	}
             return false;
         } else {
@@ -278,7 +278,7 @@ public class TheController {
 				us.setAttribute("session_access", accessSession);
 				
 				if( validate(request,response) ) {
-	                request.getRequestDispatcher("WEB-INF/view/main.jsp").forward(request,response);
+	                extract(request,response);
 	        	}
 	            return false;
 			} catch (NumberFormatException | ClassNotFoundException
@@ -408,7 +408,7 @@ public class TheController {
                                         body);
                 //Redirect to messenger page
                 if( validate(request,response) ) {
-                	request.getRequestDispatcher("WEB-INF/view/main.jsp").forward(request,response);
+                	extract(request,response);
                 }
             }else{
             	if(checkUser(request,response)) {

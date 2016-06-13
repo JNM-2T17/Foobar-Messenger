@@ -23,6 +23,7 @@
                         <%--
                         Check user authorizations here
                         --%>
+                        <tr><td>Welcome, ${sessionScope.session_user.userName }</td></tr>
                         <tr><td>Profile</td></tr>
                         <tr><td>Users</td></tr>
                         <tr><td><a href="doComposeMessage">Compose</a></td></td>
