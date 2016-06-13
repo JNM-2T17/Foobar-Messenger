@@ -84,6 +84,7 @@ public class TheController {
                 sessionTokenCookie.setMaxAge(172800);
                 Cookie sessionUserCookie = new Cookie("session_user",loggedInUser.getUserID() + "");
                 sessionUserCookie.setMaxAge(172800);
+                response.addCookie(sessionSaltCookie);
                 response.addCookie(sessionTokenCookie);
                 response.addCookie(sessionUserCookie);
                 
@@ -176,16 +177,22 @@ public class TheController {
         userSession.invalidate();
         //Get cookies
         sessionCookie = getCookie(request,"session_salt");
-        sessionCookie.setMaxAge(0);
-        response.addCookie(sessionCookie);
+        if( sessionCookie != null ) {
+	        sessionCookie.setMaxAge(0);
+	        response.addCookie(sessionCookie);
+        }
         sessionCookie = getCookie(request,"session_token");
-        sessionCookie.setMaxAge(0);
-        response.addCookie(sessionCookie);
+        if( sessionCookie != null ) {
+	        sessionCookie.setMaxAge(0);
+	        response.addCookie(sessionCookie);
+        }
         sessionCookie = getCookie(request,"session_user");
-        sessionCookie.setMaxAge(0);
-        response.addCookie(sessionCookie);
+        if( sessionCookie != null ) {
+	        sessionCookie.setMaxAge(0);
+	        response.addCookie(sessionCookie);
+        }
         //Redirect back to login
-        home(request,response);
+        request.getRequestDispatcher("WEB-INF/view/index.jsp").forward(request, response);
 	}
 	
 	@RequestMapping("/doComposeMessage")
