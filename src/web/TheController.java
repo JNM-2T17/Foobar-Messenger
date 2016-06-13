@@ -77,6 +77,16 @@ public class TheController {
                 userSession.setAttribute("session_salt", clientSalt);
                 //Save token in session
                 userSession.setAttribute("session_token", clientToken);
+                //Add Cookie of Session Token
+                Cookie sessionSaltCookie = new Cookie("session_salt", clientSalt);
+                sessionSaltCookie.setMaxAge(172800);
+                Cookie sessionTokenCookie = new Cookie("session_token", clientToken);
+                sessionTokenCookie.setMaxAge(172800);
+                Cookie sessionUserCookie = new Cookie("session_user",loggedInUser.getUserID() + "");
+                sessionUserCookie.setMaxAge(172800);
+                response.addCookie(sessionTokenCookie);
+                response.addCookie(sessionUserCookie);
+                
                 //Create new access manager
                 accessSession = new AccessManager(loggedInUser);
                 //Save user to session
@@ -85,7 +95,7 @@ public class TheController {
                 userSession.setAttribute("session_access", accessSession);
                 loggedInUser.addSession(userSession);
                 //Redirect to main page
-                response.sendRedirect("Extract");
+                extract(request,response);
             }else{
                 //Get client remote address
                 //Get 
@@ -165,21 +175,21 @@ public class TheController {
         //Invalidate user session
         userSession.invalidate();
         //Get cookies
-        cookies = request.getCookies();
-        for(int index = 0; index < cookies.length; index++){
-            if(cookies[index].getName().equals("session_token")){
-                sessionCookie = cookies[index];
-                break;
-            }
-        }
+        sessionCookie = getCookie(request,"session_salt");
+        sessionCookie.setMaxAge(0);
+        response.addCookie(sessionCookie);
+        sessionCookie = getCookie(request,"session_token");
+        sessionCookie.setMaxAge(0);
+        response.addCookie(sessionCookie);
+        sessionCookie = getCookie(request,"session_user");
         sessionCookie.setMaxAge(0);
         response.addCookie(sessionCookie);
         //Redirect back to login
-        response.sendRedirect("/");
+        home(request,response);
 	}
 	
-	@RequestMapping("/MessageComposer")
-	public void messageComposer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@RequestMapping("/doComposeMessage")
+	public void doComposeMessage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User loggedInUser = null;
         HttpSession userSession = null;
         HashMap recipients = null;
@@ -204,11 +214,11 @@ public class TheController {
                 userSession.setAttribute("session_recipients", recipients);
                 //Redirect to messenger page
                 if( validate(request,response) ) {
-                    request.getRequestDispatcher("WEB-INF/view/composer.jsp");
+                    request.getRequestDispatcher("WEB-INF/view/composer.jsp").forward(request, response);
                 }
             }else{
             	if( checkUser(request,response) ) {
-            		request.getRequestDispatcher("WEB-INF/view/index.jsp");
+            		request.getRequestDispatcher("WEB-INF/view/index.jsp").forward(request, response);
             	}
             }
         } catch (AuthenticationException ex) {
@@ -241,8 +251,50 @@ public class TheController {
                 request.getRequestDispatcher("WEB-INF/view/main.jsp").forward(request,response);
         	}
             return false;
+        } else {
+        	Cookie saltCookie = getCookie(request,"session_salt");
+        	Cookie tokenCookie = getCookie(request,"session_token");
+        	Cookie userCookie = getCookie(request,"session_user");
+        	if( saltCookie == null || tokenCookie == null || userCookie == null ) {
+        		return true;
+        	}
+        	DBManager dbm = DBManager.getInstance();
+        	try {
+				User u = dbm.getUserDetails(Integer.parseInt(userCookie.getValue()));
+				u.setLoggedIn(true);
+				AccessManager accessSession = new AccessManager(u);
+				HttpSession us = request.getSession();
+				
+				us.setAttribute("session_salt", saltCookie.getValue());
+				us.setAttribute("session_token", tokenCookie.getValue());
+				us.setAttribute("session_user", u);
+				us.setAttribute("session_access", accessSession);
+				
+				if( validate(request,response) ) {
+	                request.getRequestDispatcher("WEB-INF/view/main.jsp").forward(request,response);
+	        	}
+	            return false;
+			} catch (NumberFormatException | ClassNotFoundException
+					| SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
         }
         return true;
+	}
+	
+	public Cookie getCookie(HttpServletRequest request, String key) {
+		Cookie[] cookies = request.getCookies();
+		Cookie sessionCookie = null;
+        for(int index = 0; index < cookies.length; index++){
+            if(cookies[index].getName().equals(key)){
+                sessionCookie = cookies[index];
+                break;
+            }
+        }
+        
+        return sessionCookie;
 	}
 	
 	public boolean validate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -318,9 +370,9 @@ public class TheController {
         }
 	}
 	
-	@RequestMapping("/registrator")
+	@RequestMapping("/doSendMessage")
 	@ResponseBody
-	public void sender(@RequestParam(value="msg_to") int recipientID,
+	public void doSendMessage(@RequestParam(value="msg_to") int recipientID,
 					   @RequestParam(value="msg_subj") String subject,
 			           @RequestParam(value="msg_body") String body,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

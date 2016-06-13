@@ -16,7 +16,7 @@
         <br/>
         <br/>
         <br/>
-        <form name="login" action="AuthenticateSrv" method="post">
+        <form name="login" action="authenticate" method="post">
             <table>
                 <tr>
                     <td>Login Page</td>
