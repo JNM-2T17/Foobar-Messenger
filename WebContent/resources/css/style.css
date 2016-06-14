@@ -99,7 +99,7 @@ body {
 			}
 
 #content {
-	width:77.5%;
+	width:77.25%;
 	padding:10px;
 	margin-left:21%;
 	background-color:#129912;
@@ -115,7 +115,8 @@ body {
 	background-color:#129912;
 	color:#FFF;
 	text-align:center;
-	padding:20px 10px;	
+	padding:20px 10px;
+	margin-bottom:10px;	
 }
 
 #inbox {
