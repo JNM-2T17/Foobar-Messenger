@@ -14,37 +14,41 @@
         <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
     </head>
     <body>
-        <form name="registrator" method="post" action="doRegister">
-            <table>
-                <tr>
-                    <td>Username: </td>
-                    <td><input type="text" name="user_name"/></td>
-                </tr>
-                <tr>
-                    <td>Password: </td>
-                    <td><input type="password" name="user_password"/></td>
-                </tr>
-                <tr>
-                    <td>First Name: </td>
-                    <td><input type="text" name="user_first_name"/></td>
-                </tr>
-                <tr>
-                    <td>Last Name: </td>
-                    <td><input type="text" name="user_last_name"/></td>
-                </tr>
-                <tr>
-                    <td>E-Mail: </td>
-                    <td><input type="text" name="user_email"/></td>
-                </tr>
-                <tr>
-                    <td>Snail Mail: </td>
-                    <td><input type="text" name="user_mail_address"/></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" name="bt_submit"/></td>
-                    <td><input type="reset" name="bt_clear"/></td>
-                </tr>
-            </table>
-        </form>
+    	<div id="contentFull">
+    		<h1 id="loginHeader">Register User</h1>
+	        <form name="registrator" method="post" action="doRegister">
+	            <table id="register">
+	                <tr>
+	                    <td class="inputLabel">Username: </td>
+	                    <td class="inputContent"><input type="text" name="user_name"/></td>
+	                </tr>
+	                <tr>
+	                    <td class="inputLabel">Password: </td>
+	                    <td class="inputContent"><input type="password" name="user_password"/></td>
+	                </tr>
+	                <tr>
+	                    <td class="inputLabel">First Name: </td>
+	                    <td class="inputContent"><input type="text" name="user_first_name"/></td>
+	                </tr>
+	                <tr>
+	                    <td class="inputLabel">Last Name: </td>
+	                    <td class="inputContent"><input type="text" name="user_last_name"/></td>
+	                </tr>
+	                <tr>
+	                    <td class="inputLabel">E-Mail: </td>
+	                    <td class="inputContent"><input type="text" name="user_email"/></td>
+	                </tr>
+	                <tr>
+	                    <td class="inputLabel">Snail Mail: </td>
+	                    <td class="inputContent"><input type="text" name="user_mail_address"/></td>
+	                </tr>
+	            </table>
+	            <div class="centerButtons">
+                    <input type="submit" class="formButton" name="bt_submit"/>
+                    <input type="reset" class="formButton" name="bt_clear"/>
+	                <a href="/Foobar-Messenger" class="linkButton">Back</a>
+                </div>
+	        </form>
+		</div>
     </body>
 </html>

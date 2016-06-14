@@ -1,6 +1,7 @@
 body {
 	font-family:"Segoe UI";
 	background-color:#343434;
+	padding:10px 100px;
 }
 
 .center {
@@ -18,15 +19,9 @@ body {
 	#loginBox #loginFields {
 		margin:auto;
 	}
-	#loginBox input {
+	#loginBox input[type="text"],#loginBox input[type="password"] {
 		font-size:1.5em;
-		color:#FFF;
-	}
-	#loginBox #loginHeader {
-		text-align:center;
-		font-size:2em;
-		font-weight:bold;
-		color:#FFF;
+		color:#000;
 	}
 	#loginBox .inputLabel {
 		font-weight:bold;
@@ -36,6 +31,139 @@ body {
 	#loginBox .formRow {
 		padding:10px;
 	}
+	
+#register {
+	background-color:#129912;
+	width:700px;
+	position:relative;
+	top:20%;
+	margin:auto;
+	padding:20px;
+	border-radius:30px;}
+	#register input[type="text"],#register input[type="password"] {
+		font-size:1.5em;
+		color:#000;
+		width:450px;
+	}
+	#register .inputLabel {
+		font-weight:bold;
+		font-size:1.5em;
+		color:#FFF;
+		text-align:right;
+	}
+	#register .inputContent {
+		font-size:1.5em;
+		color:#FFF;
+		text-align:left;
+		padding-left:10px;
+	}
+	#register input[type = "text"], #messenger select {
+		font-size:1.5em;
+		color:#000;
+		font-family:"Segoe UI";
+	}
+
+.centerButtons {
+	text-align:center;
+	width:100%;
+}
+
+#loginHeader {
+	text-align:center;
+	font-size:2em;
+	font-weight:bold;
+	color:#FFF;
+}
+
+
+#sidebar {
+	width:25% - 20px;
+	padding:20px;
+	float:left;
+	background-color:#129912}
+	#sidebar ul {
+		list-style-type:none;
+		padding:0;}
+		#sidebar ul li {
+			border:solid 1px #343434;
+			background-color:#23AA23;
+			margin:10px;
+			padding:10px;
+			color:#FFF;}
+			#sidebar ul li a {
+				color:#FFF;
+				text-decoration:none;
+			}
+
+#content {
+	width:77.5%;
+	padding:10px;
+	margin-left:21%;
+	background-color:#129912;
+}
+
+#contentFull {
+	width:100%;
+	padding:10px;
+	background-color:#129912;
+}
+
+#dockHeader {
+	background-color:#129912;
+	color:#FFF;
+	text-align:center;
+	padding:20px 10px;	
+}
+
+#inbox {
+	background-color:#028801;
+	width:100%;
+	padding:20px;}
+	#inbox td {
+		border-bottom:solid 1px #000;
+		padding:10px;}
+		#inbox td a {
+			color:#FFF;
+			text-decoration:none;
+		}
+
+#messenger {
+	margin:auto;
+	width:700px;
+	}
+	#messenger .inputLabel {
+		font-weight:bold;
+		font-size:1.5em;
+		color:#FFF;
+		text-align:right;
+	}
+	#messenger .inputContent {
+		font-size:1.5em;
+		color:#FFF;
+		text-align:left;
+		padding-left:10px;
+	}
+	#messenger input[type = "text"], #messenger select {
+		font-size:1.5em;
+		color:#000;
+		font-family:"Segoe UI";
+	}
+	#messenger textarea {
+		width:600px;
+		height:400px;
+		resize:none;
+		font-size:1.5em;
+		font-family:"Segoe UI";
+	}
+	
+
+#inboxLabel {
+	text-align:center;
+	width:100%;
+	font-size:2em;
+	margin:20px 0;
+	color:#FFF;
+}
 
 .formButton {
 	background-color:#343434;
@@ -43,6 +171,8 @@ body {
 	font-family:"Segoe UI";
 	padding:10px;
 	border:1px solid #000;
+	font-size:1.5em;
+	margin:5px;
 }
 
 .linkButton {
@@ -53,4 +183,5 @@ body {
 	padding:10px;
 	top:5px;
 	text-decoration:none;
+	font-size:1.5em;
 }

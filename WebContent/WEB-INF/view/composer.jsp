@@ -15,35 +15,39 @@
         <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
     </head>
     <body class="center">
-        <h1>Messenger</h1>
-        <form name="messenger" method="post" action="doSendMessage">
-            <table>
-                <tr>
-                    <td>From:</td>
-                    <td>${sessionScope.session_user.userName }</td>
-                </tr>
-                <tr>
-                    <td>To:</td>
-                    <td>
-                        <select name="msg_to">
-                        <c:forEach items="${sessionScope.session_recipients }" var="recip">
-                        	<option value="${recip.key }">${recip.value }</option>
-                        </c:forEach>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Subject:</td>
-                    <td><input type="text" name="msg_subj"/></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><textarea name="msg_body">Hello World</textarea></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" name="bt_submit"/></td>
-                    <td><input type="reset" name="bt_reset"/></td>
-                </tr>
-            </table>
-        </form>
+    	<div id="contentFull">
+	        <h1 id="loginHeader">Messenger</h1>
+	        <form name="messenger" method="post" action="doSendMessage">
+	            <table id="messenger">
+	                <tr>
+	                    <td class="inputLabel">From:</td>
+	                    <td class="inputContent">${sessionScope.session_user.userName }</td>
+	                </tr>
+	                <tr>
+	                    <td class="inputLabel">To:</td>
+	                    <td class="inputContent">
+	                        <select name="msg_to">
+	                        <c:forEach items="${sessionScope.session_recipients }" var="recip">
+	                        	<option value="${recip.key }">${recip.value }</option>
+	                        </c:forEach>
+	                        </select>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td class="inputLabel">Subject:</td>
+	                    <td class="inputContent"><input type="text" name="msg_subj"/></td>
+	                </tr>
+	                <tr>
+	                    <td class="inputLabel">Body:</td>
+	                    <td class="inputContent"><textarea name="msg_body"></textarea></td>
+	                </tr>
+	            </table>
+	            <div>
+	            	<input type="submit" class="formButton" name="bt_submit"/>
+	                <input type="reset" class="formButton" name="bt_reset"/>
+	                <a href="/Foobar-Messenger" class="linkButton">Back</a>
+	            </div>
+	        </form>
+	    </div>
     </body>
 </html>

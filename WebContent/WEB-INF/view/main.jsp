@@ -16,33 +16,27 @@
         <title>Foobar Messenger</title>
         <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
     <body>
-        <table width="100%">
-            <th>Messenger Dock</th>
-            <tr>
-                <td width="25%">
-                    <table width="100%">
-                        <%--
-                        Check user authorizations here
-                        --%>
-                        <tr><td>Welcome, ${sessionScope.session_user.userName }</td></tr>
-                        <tr><td>Profile</td></tr>
-                        <tr><td>Users</td></tr>
-                        <tr><td><a href="doComposeMessage">Compose</a></td></td>
-                        <tr><td><a href="LogoutServ">Logout</a></td></tr>
-                    </table>
-                </td>
-                <td width="75%">
-                    <table width="100%">
-                    	<c:forEach items="${sessionScope.session_inbox }" var="message">
-                   		<tr><td>
-                   			<a href="message?mid=${message.msgID }&rid=${message.senderID }">
-                   				${message.senderName } : ${message.msgSubject }
-                   			</a>
-                   		</td></tr>
-                    	</c:forEach>
-                    </table>
-                </td>
-            </tr>
-        </table>
+    	<h1 id="dockHeader">Messenger Dock</h1>
+        <div id="sidebar">
+			<ul>
+				<li>Welcome, ${sessionScope.session_user.userName }</li>
+				<li>Profile</li>
+				<li>Users</li>
+				<li><a href="doComposeMessage">Compose</a></li>
+				<li><a href="LogoutServ">Logout</a></li>
+			</ul>
+		</div>                    
+		<div id="content">
+			<h2 id="inboxLabel">Inbox</h2>
+        	<table id="inbox">
+           	<c:forEach items="${sessionScope.session_inbox }" var="message">
+          		<tr><td>
+          			<a href="message?mid=${message.msgID }&rid=${message.senderID }">
+          				${message.senderName } : ${message.msgSubject }
+          			</a>
+          		</td></tr>
+           	</c:forEach>
+			</table>
+		</div>
     </body>
 </html>
