@@ -150,7 +150,7 @@ body {
 	#messenger input[type = "text"], #messenger select {
 		font-size:1.5em;
 		color:#000;
-		width:450px;
+		width:600px;
 		font-family:"Segoe UI";
 	}
 	#messenger textarea {
