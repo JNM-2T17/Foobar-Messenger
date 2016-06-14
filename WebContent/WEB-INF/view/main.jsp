@@ -8,14 +8,8 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@page import="dbhandler.Message"%>
-<!DOCTYPE html>
+<jsp:include page="header.jsp"/>
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Foobar Messenger</title>
-        <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
-    <body>
     	<h1 id="dockHeader">Messenger Dock</h1>
         <div id="sidebar">
 			<ul>

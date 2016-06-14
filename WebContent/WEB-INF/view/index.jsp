@@ -7,24 +7,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Foobar Messenger</title>
-        <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
-    </head>
-    <body class="center">
+<jsp:include page="header.jsp"/>
     	<div id="loginBox">
 	        <form name="login" action="authenticate" method="post">
 	            <h1 id="loginHeader">Login Page</h1>
 				<table id="loginFields">
 					<tr class="formRow">
 			            <td class="inputLabel">Username</td>
-						<td><input type="text" name="user_name" size="20"/></td>
+						<td class="inputContent"><input type="text" name="user_name" size="20"/></td>
 					</tr>
 		            <tr class="formRow">
 			        	<td class="inputLabel">Password</td>
-						<td><input type="password" name="user_password" size="15"/><br/></td>
+						<td class="inputContent"><input type="password" name="user_password" size="15"/><br/></td>
 					</tr>
 		        </table>
 		        <div class="formRow">

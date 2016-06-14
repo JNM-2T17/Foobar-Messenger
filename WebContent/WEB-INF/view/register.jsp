@@ -6,14 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Registration</title>
-        <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
-    </head>
-    <body>
+<jsp:include page="header.jsp"/>
+
     	<div id="contentFull">
     		<h1 id="loginHeader">Register User</h1>
 	        <form name="registrator" method="post" action="doRegister">
