@@ -7,85 +7,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import security.BCrypt;
+
 public class DBManager {
-	private String driverName;
-	private String url;
-	private String dbName;
-	private String username;
-	private String password;
 	private Connection connection;
 	private static DBManager instance = null;
-
-	/*
-	  	DBManager test = new DBManager("com.mysql.jdbc.DriverManager"
-									,"jdbc:mysql://127.0.0.1:3306/"
-									,"db_hpq","root","fuckmedikotopassword");
-	*/
 	
-	private DBManager(String driverName,String url,String dbName
-						,String username,String password) {
-		this.driverName = driverName; //com.mysql.jdbc.DriverManager
-		this.url = url; //jdbc.mysql://127.0.0.1:3306/
-		this.dbName = dbName; //db_hpq
-		this.username = username; //root
-		this.password = password;
+	private DBManager() {}
+	
+	public static DBManager getInstance() {
+		if( instance == null ) {
+			instance = new DBManager();
+		}
+		return instance;
 	}
-	
+
 	/**
      * This method is used to instantiate a connection with the database server
      */
     public void connectToDB() throws ClassNotFoundException, SQLException{
         //Instantiate MySQL driver and create connection
-        connection = getConnection();
+        connection = DBConnector.getInstance().getConnection();
     }
     
     public void disconnectDB() throws SQLException{
         this.connection.close();
     }
 
-	public Connection getConnection() {
-		try {
-			return DriverManager.getConnection(url + dbName,username,password);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	public static DBManager getInstance(){
-		if(instance!=null){
-			return instance;
-		} else {
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			instance = new DBManager("com.mysql.jdbc.DriverManager"
-					,"jdbc:mysql://127.0.0.1:3306/"
-					,"db_foobar","root","");
-			return instance;
-		}
-	}
-	
-	public String getDriverName() {
-		return driverName;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public String getDbName() {
-		return dbName;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-	
 	/**
      * This method is used to validate if the user has the appropriate credentials to
      * use the system
@@ -98,22 +46,27 @@ public class DBManager {
         int userID = -1;
         CallableStatement callable = null;
         ResultSet result = null;
-        String authCall = "{ call validate_user(?,?) }";
+        String storedPass = null;
+        String authCall = "{ call get_user_for_validation(?) }";
         //Connect to the DB
         this.connectToDB();
         //Validate username and password formats
         //Create callable statement to validate user
         callable = this.connection.prepareCall(authCall);
         callable.setString(1, username);
-        callable.setString(2, password);
         result = callable.executeQuery();
         //Iterate through result set
         while(result.next()){
             userID = result.getInt("user_id");
+            storedPass = result.getString("user_password");
         }
         //Close DB connection
         this.disconnectDB();
-        return userID;
+        if( BCrypt.checkpw(password, storedPass)) {
+        	return userID;
+    	} else {
+    		return -1;
+    	}
     }
     
     /**
@@ -197,8 +150,8 @@ public class DBManager {
      * @throws SQLException
      * @throws ClassNotFoundException 
      */
-    public HashMap getRecipientList(int userID) throws SQLException, ClassNotFoundException{
-        HashMap recipients = null;
+    public HashMap<Integer,String> getRecipientList(int userID) throws SQLException, ClassNotFoundException{
+        HashMap<Integer,String> recipients = null;
         ResultSet result = null;
         CallableStatement callable = null;
         String recipientCall = "{ call get_recipient_list(?) }";
@@ -210,9 +163,9 @@ public class DBManager {
         callable.setInt(1, userID);
         result = callable.executeQuery();
         //Iterate through the result set
-        recipients = new HashMap();
+        recipients = new HashMap<Integer,String>();
         while(result.next()){
-            recipients.put(result.getInt("user_id"), 
+        	recipients.put(result.getInt("user_id"), 
                            result.getString("user_name"));
         }
         this.disconnectDB();
@@ -265,14 +218,14 @@ public class DBManager {
                            String userFirstName, String userLastName, 
                            String userEmail, String userMailAddress) throws ClassNotFoundException, SQLException{
         CallableStatement callable = null;
-        String createCall = "{ call create_user(?,?,?,?,?,?,?) }";
+        String createCall = "{ call create_user_with_hash(?,?,?,?,?,?,?) }";
         //Connect to DB
         this.connectToDB();
         //Create callable statement to create a new user
         callable = this.connection.prepareCall(createCall);
         callable.setInt(1, type);
         callable.setString(2, userName);
-        callable.setString(3, userPassword);
+        callable.setString(3, BCrypt.hashpw(userPassword,BCrypt.gensalt()));
         callable.setString(4, userFirstName);
         callable.setString(5, userLastName);
         callable.setString(6, userEmail);
