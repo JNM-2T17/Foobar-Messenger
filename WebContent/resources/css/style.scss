@@ -36,7 +36,7 @@ body {
 	}
 	
 	input[type="text"], input[type="password"] {
-		@include inputStyle(450);		
+		@include inputStyle(450px);		
 	}
 	.inputLabel {
 		@include tableContent(right);		
@@ -61,7 +61,7 @@ body {
 	padding:20px;
 	border-radius:30px;
 	input[type="text"], input[type="password"] {
-		@include inputStyle(450);
+		@include inputStyle(450px);
 	}
 	.inputLabel {
 		@include tableContent(right);
@@ -89,7 +89,7 @@ body {
 
 #sidebar {
 	width:25% - 20px / 960px * 100%;
-	padding:20px;
+	padding:20px 10px;
 	float:left;
 	background-color:#129912;
 	ul {
@@ -110,9 +110,9 @@ body {
 }
 
 #content {
-	width:77.25%;
+	width:75% - 20px / 960px * 100%;
 	padding:10px;
-	margin-left:21%;
+	margin-left:25% + 4px / 960px * 100%;
 	background-color:#129912;
 }
 

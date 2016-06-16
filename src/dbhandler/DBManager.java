@@ -11,6 +11,16 @@ import security.BCrypt;
 
 public class DBManager {
 	private Connection connection;
+	private static DBManager instance = null;
+	
+	private DBManager() {}
+	
+	public static DBManager getInstance() {
+		if( instance == null ) {
+			instance = new DBManager();
+		}
+		return instance;
+	}
 
 	/**
      * This method is used to instantiate a connection with the database server

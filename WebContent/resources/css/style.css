@@ -17,7 +17,7 @@ body {
   #loginBox input[type="text"], #loginBox input[type="password"] {
     font-size: 1.5em;
     color: #000;
-    width: 450;
+    width: 450px;
     font-family: "Segoe UI"; }
   #loginBox .inputLabel {
     font-size: 1.5em;
@@ -44,7 +44,7 @@ body {
   #register input[type="text"], #register input[type="password"] {
     font-size: 1.5em;
     color: #000;
-    width: 450;
+    width: 450px;
     font-family: "Segoe UI"; }
   #register .inputLabel {
     font-size: 1.5em;
@@ -71,7 +71,7 @@ body {
 
 #sidebar {
   width: 22.91667%;
-  padding: 20px;
+  padding: 20px 10px;
   float: left;
   background-color: #129912; }
   #sidebar ul {
@@ -88,9 +88,9 @@ body {
         text-decoration: none; }
 
 #content {
-  width: 77.25%;
+  width: 72.91667%;
   padding: 10px;
-  margin-left: 21%;
+  margin-left: 25.41667%;
   background-color: #129912; }
 
 #contentFull {
