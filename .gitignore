@@ -5,6 +5,7 @@
 *.pydevproject
 .project
 .metadata
+*.class
 bin/
 tmp/
 *.tmp
@@ -214,7 +215,3 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-*.class
-*.class
-*.class
-*.class
